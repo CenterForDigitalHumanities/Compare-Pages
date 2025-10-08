@@ -1,0 +1,40 @@
+body {
+    font-family: v-sans, system-ui, -apple-system, "Segoe UI", sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: rgb(254, 248, 228);
+    margin: 0;
+    overflow: hidden;
+}
+
+#compare-pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+    box-sizing: border-box;
+}
+
+.compare-page-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80%;
+}
+
+.compare-page-item select {
+    margin: 10px 0;
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.compare-page-item img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: block;
+}
