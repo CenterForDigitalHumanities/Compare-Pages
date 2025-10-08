@@ -74,7 +74,6 @@ window.addEventListener("message", async (event) => {
         try {
           const response = await fetch(selectedCanvas.id)
           const data = await response.json()
-          console.log("Fetched canvas data:", data)
           const imageUrl =
             data?.items?.[0]?.items?.[0]?.body?.id ??
             data?.images?.[0]?.resource?.["@id"] ??
