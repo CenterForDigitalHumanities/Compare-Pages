@@ -1,4 +1,4 @@
-import { MagnifierTool, showMagnifier } from "https://app.t-pen.org/components/magnifier-tool/index.js"
+import { MagnifierTool, showMagnifier } from "./magnifier-tool.js"
 
 async function processIIIFImageUrl(imgUrl) {
   try {
@@ -58,7 +58,6 @@ function renderMagnifierTool(container) {
   magnifierButton.addEventListener('click', () => {
     if (!magnifierTool) {
       magnifierTool = new MagnifierTool()
-      magnifierTool.boundsOffset = 100
       document.body.appendChild(magnifierTool)
     }
 
