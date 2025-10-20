@@ -1,3 +1,5 @@
+import { MagnifierTool, showMagnifier } from "https://app.t-pen.org/components/magnifier-tool/index.js"
+
 async function processIIIFImageUrl(imgUrl) {
   try {
     const response = await fetch(imgUrl)
@@ -44,6 +46,39 @@ function constructIIIFImageUrl(imageData) {
   return imageUrl
 }
 
+function renderMagnifierTool(container) {
+  let magnifierTool = null
+  const magnifierButton = document.createElement('button')
+  magnifierButton.className = 'magnifier'
+  magnifierButton.type = 'button'
+  magnifierButton.textContent = 'Inspect 🔍'
+
+  container.appendChild(magnifierButton)
+
+  magnifierButton.addEventListener('click', () => {
+    if (!magnifierTool) {
+      magnifierTool = new MagnifierTool()
+      magnifierTool.boundsOffset = 100
+      magnifierTool.render()
+      magnifierTool.addEventListeners()
+      document.body.appendChild(magnifierTool)
+    }
+
+    const img = container.querySelector('img')
+    if (img) magnifierTool.imageElem = img
+
+    showMagnifier(magnifierTool)
+    magnifierButton.style.display = 'none'
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && magnifierTool?.isMagnifierVisible) {
+        magnifierTool.hideMagnifier()
+        magnifierButton.style.display = 'block'
+      }
+    })
+  })
+}
+
 window.addEventListener("message", async (event) => {
   if (!event?.data) return
   const container = document.getElementById("compare-page")
@@ -69,6 +104,10 @@ window.addEventListener("message", async (event) => {
       })
 
       canvasDropdown.addEventListener("change", async (e) => {
+        const existingMagnifierTool = document.querySelector('tpen-magnifier-tool')
+        if (existingMagnifierTool) {
+          existingMagnifierTool.remove()
+        }
         const selectedIndex = e.target.value
         const selectedCanvas = canvases[selectedIndex]
         try {
@@ -94,6 +133,8 @@ window.addEventListener("message", async (event) => {
 
           image.src = processedImageUrl
           image.alt = selectedCanvas.label || "Canvas image"
+
+          renderMagnifierTool(item)
         } catch (err) {
           console.error("Error fetching canvas image:", err)
         }
