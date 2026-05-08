@@ -82,7 +82,7 @@ function renderMagnifierTool(container) {
 window.addEventListener("message", async (event) => {
   if (!event?.data) return
   const container = document.getElementById("compare-page")
-  if (event.data.type === "CANVASES") {
+  if (event.data.type === "TPEN_CONTEXT") {
     try {
       const canvases = event.data.canvases || []
       container.innerHTML = ""
