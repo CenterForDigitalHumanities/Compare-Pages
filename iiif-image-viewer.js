@@ -84,7 +84,7 @@ window.addEventListener("message", async (event) => {
   const container = document.getElementById("compare-page")
   if (event.data.type === "TPEN_CONTEXT") {
     try {
-      const canvases = event.data.siblings || []
+      const canvases = event.data.canvases || []
       container.innerHTML = ""
 
       if (canvases.length === 0) {
